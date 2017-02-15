@@ -1,26 +1,23 @@
-class Greeter {
-    element: HTMLElement;
-    span: HTMLElement;
-    timerToken: number;
-
-    constructor(element: HTMLElement) {
-        this.element = element;
-        this.element.innerHTML += "The time is: ";
-        this.span = document.createElement('span');
-        this.element.appendChild(this.span);
-        this.span.innerText = new Date().toUTCString();
-    }
-
-    start() {
-        this.timerToken = setInterval(() => this.span.innerHTML = new Date().toUTCString(), 500);
-    }
-
-    stop() {
-        clearTimeout(this.timerToken);
-    }
-
+interface Drawable{
+    context:CanvasRenderingContext2D;
+    draw();
 }
-
+class DrawObject implements Drawable{
+    x:number;
+    y:number;
+    context:CanvasRenderingContext2D;
+    draw(){
+        this.context=Stage.getInstance().getContext();
+    }
+}
+class Stage{
+    static getInstance():Stage{
+        return 0;
+    }
+    getContext(context:CanvasRenderingContext2D){
+        
+    }
+}
 window.onload = () => {
     alert(222)
 };

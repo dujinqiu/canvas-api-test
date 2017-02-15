@@ -1,19 +1,20 @@
-var Greeter = (function () {
-    function Greeter(element) {
-        this.element = element;
-        this.element.innerHTML += "The time is: ";
-        this.span = document.createElement('span');
-        this.element.appendChild(this.span);
-        this.span.innerText = new Date().toUTCString();
+var DrawObject = (function () {
+    function DrawObject() {
     }
-    Greeter.prototype.start = function () {
-        var _this = this;
-        this.timerToken = setInterval(function () { return _this.span.innerHTML = new Date().toUTCString(); }, 500);
+    DrawObject.prototype.draw = function () {
+        this.context = Stage.getInstance().getContext();
     };
-    Greeter.prototype.stop = function () {
-        clearTimeout(this.timerToken);
+    return DrawObject;
+}());
+var Stage = (function () {
+    function Stage() {
+    }
+    Stage.getInstance = function () {
+        return 0;
     };
-    return Greeter;
+    Stage.prototype.getContext = function (context) {
+    };
+    return Stage;
 }());
 window.onload = function () {
     alert(222);
