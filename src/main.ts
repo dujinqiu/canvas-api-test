@@ -22,5 +22,5 @@ class Greeter {
 }
 
 window.onload = () => {
-    alert(111)
+    alert(222)
 };
