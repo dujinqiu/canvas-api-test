@@ -124,5 +124,24 @@ class DrawObjectContainer extends DrawObject {
 }
 
 window.onload = () => {
-    alert(222)
+  var canvas = document.getElementById('canvasEl') as HTMLCanvasElement;
+    var context = canvas.getContext("2d");
+    context.fillStyle = "#66ccff";
+    context.fillRect(0, 0, canvas.width, canvas.height);
+
+    //初始化舞台
+    var stage = Stage.getInstance();
+    stage.setContext(context);
+    //创建绘制对象
+    context.fillStyle = "#EE0000";
+    var rect = new Rectangle(0,0,50,50);
+    var text = new TextField(100,100,"Hello World");
+    var img = new Image()
+    img.src = "/src/img.jpg";
+    var image = new ImageField(200,200,"/src/img.jpg");
+    stage.addchild(rect);
+    stage.addchild(text);
+    stage.addchild(image);
+    stage.draw();
+
 };
