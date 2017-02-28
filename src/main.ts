@@ -8,9 +8,32 @@ class DrawObject implements objectDrawable{
     x:number;
     y:number;
     context:CanvasRenderingContext2D;
-    
+    alpha=1;
+    globalalpha=1;
+    parent:DrawObjectContainer;
+    transMatrix:number[][];
+
     draw(){
         this.context=Stage.getInstance().getContext();
+        if(this.parent){
+            this.globalalpha=this.alpha*this.parent.globalalpha;
+            console.log("this.globalalpha=this.alpha*this.parent.globalalpha;");
+            console.log("parent.globalalpha",this.parent.globalalpha);
+            console.log("parent.alpha",this.parent.alpha);
+            console.log("globalalpha",this.globalalpha);
+            
+        }
+        else{
+            this.globalalpha=this.alpha;
+        }
+        this.context.globalAlpha=this.globalalpha;
+        this.render(this.context);
+    }
+    render(context:CanvasRenderingContext2D){
+    }
+    transform(x:number,y:number){
+        this.transMatrix[0][2]+=x;
+        this.transMatrix[1][2]+=y;
     }
     constructor(x:number,y:number){
         this.x=x;
@@ -145,3 +168,4 @@ window.onload = () => {
     stage.draw();
 
 };
+
