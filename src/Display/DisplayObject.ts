@@ -1,4 +1,4 @@
-/*interface objectDrawable{
+interface objectDrawable{
     context:CanvasRenderingContext2D;
     draw();
 }
@@ -125,42 +125,3 @@ class TextField extends DrawObject {
              } 
 
 }
-*/
-
-// class DrawObjectContainer extends DrawObject {
-//     drawList: objectDrawable[] = [];
-//     addChild(child: DrawObject) {
-//         this.drawList.push(child);
-//         child.parent=this;
-//     }
-
-//    render(context:CanvasRenderingContext2D){
-//        for(let drawable of this.drawList){
-//            drawable.draw();
-//        }
-//    }
-// }
-
-window.onload = () => {
-  var canvas = document.getElementById('canvasEl') as HTMLCanvasElement;
-    var context = canvas.getContext("2d");
-    context.fillStyle = "#66ccff";
-    context.fillRect(0, 0, canvas.width, canvas.height);
-
-    //初始化舞台
-    var stage = new DrawObjectContainer(canvas);
-    //创建绘制对象
-    context.fillStyle = "#EE0000";
-    var rect = new Rectangle(0,0,50,50);
-    var text = new TextField(100,100,"Hello World");
-    text.alpha=0.1;
-    var img = new Image()
-    img.src = "/src/img.jpg";
-    var image = new ImageField(200,200,"/src/img.jpg");
-    stage.addchild(rect);
-    stage.addchild(text);
-    stage.addchild(image);
-    stage.draw();
-
-};
-
