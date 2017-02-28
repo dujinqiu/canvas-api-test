@@ -1,20 +1,25 @@
 interface objectDrawable{
-    context:CanvasRenderingContext2D;
-    draw();
+    render(context2D:CanvasRenderingContext2D);
 }
 
-
-class DrawObject implements objectDrawable{
-    x:number;
-    y:number;
+abstract class DisplayObject implements objectDrawable{
+    parent:DisplayObjectContainer;
+    x:number=0;
+    y:number=0;
     context:CanvasRenderingContext2D;
     alpha=1;
     globalalpha=1;
-    parent:DrawObjectContainer;
-    transMatrix:number[][];
+    scaleX=1;
+    scaleY=1;
+    rotation=0;
+    localMatrix=new math.Matrix();
+    globalMatrix=new math.Matrix();
+    liseners:TouchEvents[]=[];
+    width=1;
+    height=1;
 
-    draw(){
-        this.context=Stage.getInstance().getContext();
+    draw(context2D:CanvasRenderingContext2D){
+        this.localMatrix.updateFromDisplayObject()
         if(this.parent){
             this.globalalpha=this.alpha*this.parent.globalalpha;
             console.log("this.globalalpha=this.alpha*this.parent.globalalpha;");

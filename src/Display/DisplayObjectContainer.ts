@@ -1,4 +1,4 @@
-class DrawObjectContainer extends DrawObject {
+class DisplayObjectContainer extends DrawObject {
     drawList: objectDrawable[] = [];
     addChild(child: DrawObject) {
         this.drawList.push(child);
