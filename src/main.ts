@@ -24,7 +24,8 @@ class DrawObject implements objectDrawable{
             
         }
         else{
-            this.globalalpha=this.alpha;
+            this.globalalpha=this.alpha*this.parent.globalalpha;
+            //this.globalalpha=this.alpha;
         }
         this.context.globalAlpha=this.globalalpha;
         this.render(this.context);
@@ -49,13 +50,9 @@ class Stage{
     private static instance=new Stage();
     private context:CanvasRenderingContext2D;
     drawList:objectDrawable[]=[];
-
     addchild(drawable:objectDrawable){
         this.drawList.push(drawable);
     }
-
-
-
     draw(){
         this.drawList.forEach((value)=>{value.draw()});
     }
@@ -123,27 +120,25 @@ class TextField extends DrawObject {
         this.str = str;
         
     }
-    draw() {
-        super.draw();
-      
-        this.context.fillText(this.str, this.x, this.y);
-     
-    }
+    render(context:CanvasRenderingContext2D){ 
+         context.fillText(this.str,this.x,this.y,100); 
+             } 
+
 }
 
 
 class DrawObjectContainer extends DrawObject {
     drawList: objectDrawable[] = [];
-
-    addChild(drawable: objectDrawable) {
-        this.drawList.push(drawable);
+    addChild(child: DrawObject) {
+        this.drawList.push(child);
+        child.parent=this;
     }
 
-    draw() {
-        this.drawList.forEach((value) => {
-            value.draw();
-        });
-    }
+   render(context:CanvasRenderingContext2D){
+       for(let drawable of this.drawList){
+           drawable.draw();
+       }
+   }
 }
 
 window.onload = () => {
@@ -153,12 +148,12 @@ window.onload = () => {
     context.fillRect(0, 0, canvas.width, canvas.height);
 
     //初始化舞台
-    var stage = Stage.getInstance();
-    stage.setContext(context);
+    var stage = new DrawObjectContainer(canvas);
     //创建绘制对象
     context.fillStyle = "#EE0000";
     var rect = new Rectangle(0,0,50,50);
     var text = new TextField(100,100,"Hello World");
+    text.alpha=0.1;
     var img = new Image()
     img.src = "/src/img.jpg";
     var image = new ImageField(200,200,"/src/img.jpg");
