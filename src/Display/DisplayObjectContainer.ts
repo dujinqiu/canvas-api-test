@@ -1,8 +1,10 @@
-class DisplayObjectContainer extends DrawObject {
+class DisplayObjectContainer extends DisplayObject {
+      globalalpha=1;
     drawList: objectDrawable[] = [];
-    addChild(child: DrawObject) {
+    addChild(child: DisplayObject) {
         this.drawList.push(child);
         child.parent=this;
+      
     }
 
    render(context:CanvasRenderingContext2D){

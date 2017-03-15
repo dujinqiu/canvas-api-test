@@ -1,5 +1,6 @@
 interface objectDrawable{
     render(context2D:CanvasRenderingContext2D);
+    draw(context2D:CanvasRenderingContext2D);
 }
 
 abstract class DisplayObject implements objectDrawable{
@@ -14,9 +15,12 @@ abstract class DisplayObject implements objectDrawable{
     rotation=0;
     localMatrix=new math.Matrix();
     globalMatrix=new math.Matrix();
-    liseners:TouchEvents[]=[];
+    //liseners:TouchEvents[]=[];
+    touchEnabled=true;
     width=1;
     height=1;
+    normalWidth=-1;
+    normalHeight=-1;
 
     draw(context2D:CanvasRenderingContext2D){
         this.localMatrix.updateFromDisplayObject()
@@ -86,7 +90,7 @@ class Stage{
     }
 }
 
-class Rectangle extends DrawObject {
+class Rectangle extends DisplayObject {
     width: number;
     height: number;
     constructor(x: number, y: number, width: number, height: number) {
@@ -101,7 +105,7 @@ class Rectangle extends DrawObject {
 }
 
 
-class ImageField extends DrawObject {
+class ImageField extends DisplayObject {
     image:HTMLImageElement;
     constructor(x: number, y: number,img:string,width?:number, height?:number) {
         super(x, y);
@@ -117,7 +121,7 @@ class ImageField extends DrawObject {
     }
 }
 
-class TextField extends DrawObject {
+class TextField extends DisplayObject {
     str: string;
 
     constructor(x: number, y: number, str: string) {
